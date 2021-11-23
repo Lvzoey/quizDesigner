@@ -25,4 +25,16 @@ public class MatchingQuestions extends Questions{
     public List<String> getQuestions() {
         return questions;
     }
+
+    public void setAnswer(List<Integer> answer) {
+        this.answer = answer;
+    }
+
+    public void setMatchingAnswers(List<String> matchingAnswers) {
+        this.matchingAnswers = matchingAnswers;
+    }
+
+    public void setQuestions(List<String> questions) {
+        this.questions = questions;
+    }
 }

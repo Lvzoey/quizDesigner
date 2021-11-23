@@ -25,5 +25,24 @@ public class MultipleQuestions extends Questions{
         return numQuestion;
     }
 
+    public List<String> getQuestions() {
+        return questions;
+    }
+
+    public void setAnswer(int answer) {
+        this.answer = answer;
+    }
+
+    public void setQuestions(List<String> questions) {
+        this.questions = questions;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNumQuestion(int numQuestion) {
+        this.numQuestion = numQuestion;
+    }
 
 }

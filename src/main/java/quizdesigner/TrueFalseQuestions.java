@@ -22,5 +22,15 @@ public class TrueFalseQuestions extends Questions{
         return question;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public void setAnswer(boolean answer) {
+        this.answer = answer;
+    }
 }
