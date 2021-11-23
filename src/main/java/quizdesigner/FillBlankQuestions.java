@@ -1,3 +1,5 @@
+package quizdesigner;
+
 public class FillBlankQuestions extends Questions{
     String name;
     String question;

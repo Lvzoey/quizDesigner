@@ -1,3 +1,5 @@
+package quizdesigner;
+
 public class TextQuestions extends Questions{
     String name;
     String question;

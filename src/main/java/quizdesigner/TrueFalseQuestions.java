@@ -1,3 +1,5 @@
+package quizdesigner;
+
 public class TrueFalseQuestions extends Questions{
     String name;
     boolean answer;
