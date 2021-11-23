@@ -1,3 +1,5 @@
+package quizdesigner;
+
 import java.util.*;
 public class MultipleQuestions extends Questions{
     String name;
