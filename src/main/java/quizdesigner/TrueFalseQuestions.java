@@ -1,17 +1,11 @@
 package quizdesigner;
 
 public class TrueFalseQuestions extends Questions{
-    String name;
     boolean answer;
     String question;
-    public TrueFalseQuestions(String name, boolean answer, String question){
-        this.name = name;
+    public TrueFalseQuestions(boolean answer, String question){
         this.answer = answer;
         this.question = question;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public boolean getAnswer() {
@@ -22,9 +16,6 @@ public class TrueFalseQuestions extends Questions{
         return question;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public void setQuestion(String question) {
         this.question = question;

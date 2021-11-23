@@ -1,17 +1,11 @@
 package quizdesigner;
 
 public class FillBlankQuestions extends Questions{
-    String name;
     String question;
     String answer;
-    public FillBlankQuestions(String name, String question, String answer){
-        this.name = name;
+    public FillBlankQuestions(String question, String answer){
         this.question = question;
         this.answer = answer;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getQuestion() {
@@ -24,10 +18,6 @@ public class FillBlankQuestions extends Questions{
 
     public void setAnswer(String answer) {
         this.answer = answer;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setQuestion(String question) {
