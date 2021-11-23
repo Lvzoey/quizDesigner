@@ -2,38 +2,27 @@ package quizdesigner;
 
 import java.util.*;
 public class MultipleQuestions extends Questions{
-    int answer;
-    int numQuestion;
-    List<String> questions = new ArrayList<>();
-    public MultipleQuestions(int numQuestion, List<String> questions, int answer){
-        this.numQuestion = numQuestion;
-        this.questions = questions;
+    List<String> answer;
+    private List<String> question = new ArrayList<>();
+    public MultipleQuestions(List<String> question, List<String> answer){
+        this.question = question;
         this.answer = answer;
     }
 
-
-    public int getAnswer() {
+    public List<String> getAnswer() {
         return answer;
     }
 
-    public int getNumQuestion() {
-        return numQuestion;
+    public List<String> getQuestion() {
+        return question;
     }
 
-    public List<String> getQuestions() {
-        return questions;
-    }
-
-    public void setAnswer(int answer) {
+    public void setAnswer(List<String> answer) {
         this.answer = answer;
     }
 
-    public void setQuestions(List<String> questions) {
-        this.questions = questions;
-    }
-
-    public void setNumQuestion(int numQuestion) {
-        this.numQuestion = numQuestion;
+    public void setQuestion(List<String> question) {
+        this.question = question;
     }
 
 }
