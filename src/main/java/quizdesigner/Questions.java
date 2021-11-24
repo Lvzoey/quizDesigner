@@ -3,21 +3,32 @@ import org.springframework.boot.context.properties.bind.Name;
 
 import java.util.*;
 public class Questions {
+    String name;
 
-
-    public Question getQuestion(Enum questionType){
-        return Question.get(questionType);
+    public Question getQuestion(){
+        return new Question();
     }
 
     public Answer getAnswer(){
         return new Answer();
     }
 
-    public void setQuestion(){
+    public void setQuestion(List<String> question){
 
     }
 
-    public void setAnswer(){
+    public void setQuestion(String question){
 
+    }
+
+    public void setAnswer(List<String> answer){
+
+    }
+    public void setAnswer(String answer){
+
+    }
+
+    public String getName() {
+        return this.name;
     }
 }
