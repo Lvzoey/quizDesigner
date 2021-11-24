@@ -1,14 +1,17 @@
 package quizdesigner;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class MultipleQuestions extends Questions{
+public class MultipleQuestions extends Questions {
     Answer answer;
     Question question;
     String name = "Multiple Choice";
 
-    public MultipleQuestions(String question, List<String> answer){
+    public MultipleQuestions(String question, List<String> answer) {
         this.question = new Question(question);
         List<String> convered_answer = new ArrayList<>();
         for (String s : answer) {
@@ -42,6 +45,7 @@ public class MultipleQuestions extends Questions{
     public void setQuestion(String question) {
         this.question = new Question(question);
     }
+
     @Override
     public String getName() {
         return this.name;
@@ -59,9 +63,70 @@ public class MultipleQuestions extends Questions{
             String a = this.answer.List_answer.get(i);
             String[] answer_correct = a.split("\\|");
             int len = max_len - answer_correct[0].length();
-            s += String.valueOf((char)(i+65)) + ": " + answer_correct[0] + " ".repeat(len) + answer_correct[1] + "\n";
+            s += String.valueOf((char) (i + 65)) + ": " + answer_correct[0] + " ".repeat(len) + answer_correct[1] + "\n";
         }
         return s;
+    }
+
+    public void update() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String str = null;
+        String Q = null;
+        String A = null;
+        String Correct = null;
+        System.out.println("Old Question:");
+        System.out.println(this);
+
+        while (true) {
+            System.out.println("Update a question? (y/n) or Press Enter to quit");
+            Q = br.readLine();
+            if (Q.equals("")) {
+                break;
+            } else if (Q.equals("y")) {
+                System.out.println("Enter Your Question or Press Enter To Quit: ");
+                Q = br.readLine();
+                if (Q.equals("")) {
+                    break;
+                } else {
+                    this.question.String_question = Q;
+                }
+            } else if (Q.equals("n")) {
+                System.out.println("Update a Choice? (C) or Add a Choice (A) or Press Enter to quit");
+                Q = br.readLine();
+                if (Q.equals("")) {
+                    break;
+                } else if (Q.equals("C")) {
+                    System.out.println("Which one do you want to update");
+                    str = br.readLine();
+                    int idx = (int)str.charAt(0)- 65;
+                    System.out.println("Enter Your Answer " + String.valueOf((char) (idx + 65)));
+                    A = br.readLine();
+                    System.out.println("Is It The Correct One? 0 For False, 1 For True");
+                    Correct = br.readLine();
+
+                    if (Correct.equals("0")) {
+                        Correct = "False";
+                    } else if (Correct.equals("1")) {
+                        Correct = "True";
+                    }
+
+                    this.answer.List_answer.set(idx, A + "|" + Correct);
+                } else if (Q.equals("A")) {
+                    System.out.println("Enter Your Answer " + String.valueOf((char) (this.answer.List_answer.size() + 65)));
+                    A = br.readLine();
+                    System.out.println("Is It The Correct One? 0 For False, 1 For True");
+                    Correct = br.readLine();
+                    if (Correct.equals("0")) {
+                        Correct = "False";
+                    } else if (Correct.equals("1")) {
+                        Correct = "True";
+                    }
+                    this.answer.List_answer.add(A + "|" + Correct);
+                }
+            }
+            System.out.println("Updated Question:");
+            System.out.println(this);
+        }
     }
 
     public static void main(String[] args) {

@@ -177,22 +177,23 @@ public class Quiz {
         str = br.readLine();
         int idx = Integer.parseInt(str) - 1;
         Questions q = Qs.get(idx);
-        System.out.println("Old Question:");
-        System.out.println(q);
-
-        System.out.println("Update question: (Press Enter for no editing)");
-        str = br.readLine();
-        if (!str.equals("")) {
-            q.setQuestion(str);
-        }
-
-        System.out.println("Update answer: (Press Enter for no editing)");
-        if (!str.equals("")) {
-            q.setAnswer(str);
-        }
-
-        System.out.println("Question updated. ");
-        System.out.println(q);
+        q.update();
+//        System.out.println("Old Question:");
+//        System.out.println(q);
+//
+//        System.out.println("Update question: (Press Enter for no editing)");
+//        str = br.readLine();
+//        if (!str.equals("")) {
+//            q.setQuestion(str);
+//        }
+//
+//        System.out.println("Update answer: (Press Enter for no editing)");
+//        if (!str.equals("")) {
+//            q.setAnswer(str);
+//        }
+//
+//        System.out.println("Question updated. ");
+//        System.out.println(q);
     }
 
     private void Read_A_Question() throws IOException{
