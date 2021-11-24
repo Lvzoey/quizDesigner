@@ -77,8 +77,4 @@ public class FillBlankQuestions extends Questions {
         System.out.println(this);
     }
 
-//    public static void main(String[] args) {
-//        FillBlankQuestions a = new FillBlankQuestions("adasfasdf $ asdf asdf asdf", "asdfa");
-//        System.out.println(a);
-//    }
 }

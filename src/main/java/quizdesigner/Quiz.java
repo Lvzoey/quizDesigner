@@ -154,7 +154,7 @@ public class Quiz {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str = null;
         print_current_questions();
-
+        System.out.println("which one do you want to delete");
         str = br.readLine();
         int idx = Integer.parseInt(str) - 1;
         System.out.println("Is this question you want to delete?");
@@ -173,34 +173,18 @@ public class Quiz {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str = null;
         print_current_questions();
-
+        System.out.println("which one do you want to update");
         str = br.readLine();
         int idx = Integer.parseInt(str) - 1;
         Questions q = Qs.get(idx);
         q.update();
-//        System.out.println("Old Question:");
-//        System.out.println(q);
-//
-//        System.out.println("Update question: (Press Enter for no editing)");
-//        str = br.readLine();
-//        if (!str.equals("")) {
-//            q.setQuestion(str);
-//        }
-//
-//        System.out.println("Update answer: (Press Enter for no editing)");
-//        if (!str.equals("")) {
-//            q.setAnswer(str);
-//        }
-//
-//        System.out.println("Question updated. ");
-//        System.out.println(q);
     }
 
     private void Read_A_Question() throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str = null;
-        System.out.println("You have " + Qs.size() + " in the quiz, which one do you want to read");
-
+        print_current_questions();
+        System.out.println("which one do you want to read");
         str = br.readLine();
         int idx = Integer.parseInt(str) - 1;
         Questions q = Qs.get(idx);
