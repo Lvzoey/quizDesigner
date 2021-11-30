@@ -1,52 +1,23 @@
 package quizdesigner;
 
 import java.sql.*;
-
-public class db {
-    // JDBC driver name and database URL
-    static final String DB_URL = "jdbc:mysql://localhost/";
-
-    //  Database credentials
-    static final String USER = "quiz";
-    static final String PASS = "123456";
-
-    public static void main(String[] args) {
-        Connection conn = null;
-        Statement stmt = null;
+class MysqlCon{
+    public static void main(String args[]){
         try{
-            //STEP 2: Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con=DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/quiz_designer","root","123");
+            Statement stmt=con.createStatement();
+            String sql = "CREATE TABLE question " +
+                    "(id INTEGER not NULL, " +
+                    " questionType TEXT, " +
+                    " question TEXT, " +
+                    " answer TEXT)";
 
-            //STEP 3: Open a connection
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-
-            //STEP 4: Execute a query
-            System.out.println("Creating database...");
-            stmt = conn.createStatement();
-
-            String sql = "CREATE DATABASE Quiz_List";
-            stmt.executeUpdate(sql);
-            System.out.println("Database created successfully...");
-        }catch(SQLException se){
-            //Handle errors for JDBC
-            se.printStackTrace();
+            stmt.execute(sql);
         }catch(Exception e){
-            //Handle errors for Class.forName
+            System.out.println(e);
             e.printStackTrace();
-        }finally{
-            //finally block used to close resources
-            try{
-                if(stmt!=null)
-                    stmt.close();
-            }catch(SQLException se2){
-            }// nothing we can do
-            try{
-                if(conn!=null)
-                    conn.close();
-            }catch(SQLException se){
-                se.printStackTrace();
-            }
         }
     }
 }

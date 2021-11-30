@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit questions</title>
+
+</head>
+<body>
+    <div>
+        <h1>Edit Question</h1>
+        {% for question in response %}
+        <p>id: {{question[0]}}</p>
+        <p>questionType: {{question[1]}}</p>
+        <p>question: {{question[2]}}</p>
+        <p>answer: {{question[3]}}</p>
+
+        <form action="/delete" method="get">
+            <input type="text" name="Question" value="{{question[0]}}" style="display: none"/>
+            <input type="submit" name="delete" value="Delete"/>
+        </form>
+        <br>
+        <form action="/update" method="post">
+            <input type="text" name="id" value="{{class[0]}}" style="display: none"/>
+            <label>Question:</label><br>
+            <input type="text" class="question" name="question"><br>
+            <label>Answer:</label><br>
+            <input type="text" class="answer" name="answer"><br>
+            <input type="submit" name="update" value="Update"/>
+        </form>
+        </p >
+        {% endfor %}
+    </div>
+    <div><br><br>
+        <h1>Add a Question</h1>
+        <form action="/add" method="post">
+            <label>Question:</label><br>
+            <input type="text" class="question" name="question"><br>
+            <label>Answer:</label><br>
+            <input type="text" class="answer" name="grade"><br>
+            <input type="submit" name="Add" value="Add"/>
+        </form>
+    </div>
+</body>
+</html>
