@@ -1,6 +1,7 @@
 package quizdesigner;
+import java.io.Serializable;
 import java.util.*;
-public class Question {
+public class Question implements Serializable {
 
     String String_question=null;
     List<String> List_question=null;

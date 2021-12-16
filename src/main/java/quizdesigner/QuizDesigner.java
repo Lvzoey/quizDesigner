@@ -130,7 +130,6 @@ public class QuizDesigner {
             String jsonInString = rs.getString(1);
             Quiz q = gson.fromJson(jsonInString, Quiz.class);
             System.out.println(q.getName() + q.Qs.get(0).getName());
-
             q.UserInput();
         }
     }

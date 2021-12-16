@@ -8,7 +8,7 @@ public class Quiz implements Serializable{
     List<Questions> Qs = new ArrayList<>();
     public Quiz(String quizName) throws IOException {
         this.quizName = quizName;
-        UserInput();
+//        UserInput();
     }
 
     public String getName() {

@@ -3,10 +3,11 @@ package quizdesigner;
 import org.springframework.boot.context.properties.bind.Name;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 
-public class Questions {
-    transient String name;
+public class Questions implements Serializable {
+    String Qname;
 
     public Question getQuestion() {
         return new Question();
@@ -29,7 +30,7 @@ public class Questions {
     }
 
     public String getName() {
-        return this.name;
+        return this.Qname;
     }
 
     public void update() throws IOException {
