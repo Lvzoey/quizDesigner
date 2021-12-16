@@ -1,18 +1,17 @@
 package quizdesigner;
 
 import java.sql.*;
-class MysqlCon{
-    public static void main(String args[]){
+class db{
+
+    public static void CreateDatabase(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con=DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/quiz_designer","root","123");
             Statement stmt=con.createStatement();
-            String sql = "CREATE TABLE question " +
-                    "(id INTEGER not NULL, " +
-                    " questionType TEXT, " +
-                    " question TEXT, " +
-                    " answer TEXT)";
+            String sql = "CREATE TABLE IF NOT EXISTS Quizes " +
+                    "(name TEXT, " +
+                    " quizInfo TEXT)";
 
             stmt.execute(sql);
         }catch(Exception e){

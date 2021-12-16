@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class Questions {
-    String name;
+    transient String name;
 
     public Question getQuestion() {
         return new Question();

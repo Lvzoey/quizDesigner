@@ -2,24 +2,24 @@ package quizdesigner;
 import java.io.*;
 import java.util.*;
 
-public class Quiz {
+public class Quiz implements Serializable{
 
-    String name;
+    String quizName;
     List<Questions> Qs = new ArrayList<>();
-    public Quiz(String name) throws IOException {
-        this.name = name;
+    public Quiz(String quizName) throws IOException {
+        this.quizName = quizName;
         UserInput();
     }
 
     public String getName() {
-        return name;
+        return quizName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String quizName) {
+        this.quizName = quizName;
     }
 
-    private void UserInput() throws IOException {
+    public void UserInput() throws IOException {
         boolean flag = true;
         while (flag) {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -52,6 +52,9 @@ public class Quiz {
                     break;
                 case "4":
                     Read_A_Question();
+                    break;
+                case "Quit":
+                    flag = false;
                     break;
                 default:
                     System.out.println("Please Enter Again");
@@ -200,10 +203,10 @@ public class Quiz {
         System.out.println("==========================================================================================");
     }
 
-    public static void main(String[] args) throws IOException{
-        Quiz a = new Quiz("week");
-        a.UserInput();
-    }
+//    public static void main(String[] args) throws IOException{
+//        Quiz a = new Quiz("week");
+//        a.UserInput();
+//    }
 
 
 }
