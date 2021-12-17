@@ -8,22 +8,23 @@ import com.google.gson.*;
 
 public class test {
     public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-        String file_name = "C:\\Users\\123\\Desktop\\object.txt";
-        String file1_name = "C:\\Users\\123\\Desktop\\Bull_Shit_object.txt";
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con= DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/test","root","123");
-            Statement stmt=con.createStatement();
-            String sql = "CREATE TABLE IF NOT EXISTS Quizes " +
-                    "(name TEXT, " +
-                    " quizInfo TEXT)";
+        String file_name = "C:\\Users\\ZXY\\Desktop\\object.txt";
+        String file1_name = "C:\\Users\\ZXY\\Desktop\\Bull_Shit_object.txt";
+//        try{
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            Connection con= DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/test","root","123");
+//            Statement stmt=con.createStatement();
+//            String sql = "CREATE TABLE IF NOT EXISTS Quizes " +
+//                    "(name TEXT," +
+//                    " quizObj BLOB)";
+//
+//            stmt.execute(sql);
+//        }catch(Exception e){
+//            System.out.println(e);
+//            e.printStackTrace();
+//        }
 
-            stmt.execute(sql);
-        }catch(Exception e){
-            System.out.println(e);
-            e.printStackTrace();
-        }
 
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file_name))) {
             Quiz a = new Quiz("q_name");
@@ -33,6 +34,10 @@ public class test {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        try(ObjectInputStream oos = new ObjectInputStream(new FileInputStream(file_name))){
+            Quiz b = (Quiz) oos.readObject();
+            System.out.println(b.Qs.get(0));
         }
 
         try{
@@ -84,8 +89,43 @@ public class test {
             Quiz b = (Quiz) oos.readObject();
             System.out.println("s");
         }
-
-
+//        try{
+//            Quiz a = new Quiz("q_name");
+//            Questions q = new TrueFalseQuestions("tf", "0");
+//            PreparedStatement preps;
+//            Connection con= DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/test","root","123");
+//            preps = con.prepareStatement("insert into Quizes (name, quizObj) values (?, ?)");
+//            preps.setString(1, "test1");
+//            preps.setObject(2, a);
+//            preps.execute();
+//        } catch(Exception e){
+//            System.out.println(e);
+//        }
+//        try{
+//            PreparedStatement preps;
+//            Connection con= DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/test","root","123");
+//            preps = con.prepareStatement("select quizObj from Quizes where name = ?");
+//            preps.setString(1, "test1");
+//            ResultSet rs = preps.executeQuery();
+////            List<Quiz> bs = new ArrayList<>();
+//            if (rs.next()) {
+//                Blob inBlob = rs.getBlob(1);
+//                InputStream is = inBlob.getBinaryStream();
+//                BufferedInputStream bis = new BufferedInputStream(is);
+//                byte[] buff = new byte[(int) inBlob.length()];
+//                while (-1 != (bis.read(buff, 0, buff.length))) {            //一次性全部读到buff中
+//                    ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(buff));
+//                    Quiz b = (Quiz) in.readObject();                   //读出对象
+//                    System.out.println(b.quizName);
+//                }
+//
+//            }
+//
+//        } catch (Exception e){
+//            System.out.println(e);
+//        }
 
     }
 
