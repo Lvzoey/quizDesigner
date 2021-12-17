@@ -4,129 +4,123 @@ import java.io.*;
 import java.nio.file.Files;
 import java.sql.*;
 import java.util.*;
+
 import com.google.gson.*;
 
 public class test {
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-        String file_name = "C:\\Users\\ZXY\\Desktop\\object.txt";
-        String file1_name = "C:\\Users\\ZXY\\Desktop\\Bull_Shit_object.txt";
-//        try{
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//            Connection con= DriverManager.getConnection(
-//                    "jdbc:mysql://localhost:3306/test","root","123");
-//            Statement stmt=con.createStatement();
-//            String sql = "CREATE TABLE IF NOT EXISTS Quizes " +
-//                    "(name TEXT," +
-//                    " quizObj BLOB)";
-//
-//            stmt.execute(sql);
-//        }catch(Exception e){
-//            System.out.println(e);
-//            e.printStackTrace();
-//        }
-
-
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file_name))) {
-            Quiz a = new Quiz("q_name");
-            Questions q = new TrueFalseQuestions("tf", "0");
-            a.Qs.add(q);
+    public static byte[] saveObjToByteFile(Quiz a) {
+        try {
+            byte[] std;
+            ByteArrayOutputStream byt = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(byt);
             oos.writeObject(a);
-
-        } catch (Exception e) {
+            std = byt.toByteArray();
+            oos.close();
+            return std;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        try(ObjectInputStream oos = new ObjectInputStream(new FileInputStream(file_name))){
-            Quiz b = (Quiz) oos.readObject();
-            System.out.println(b.Qs.get(0));
+        return null;
+    }
+
+    public static Quiz getObjFromByteFile(byte[] std) {
+        try {
+            ByteArrayInputStream byteInt = new ByteArrayInputStream(std);
+            ObjectInputStream objInt = new ObjectInputStream(byteInt);
+            Quiz q = (Quiz) objInt.readObject();
+            return q;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Connection DbConnect() {
+        Connection conn;
+        PreparedStatement pres;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("数据库加载成功!!!");
+            String url = "jdbc:mysql://localhost:3306/quiz_designer";
+            String user = "root";
+            String password = "1";
+
+            conn = DriverManager.getConnection(url, user, password); //建立连接
+            System.out.println("数据库连接成功!!!");
+            return conn;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
         }
 
-        try{
-            File file = new File(file_name);
-            InputStreamReader rd = new InputStreamReader(new FileInputStream(file), "gbk");
-            BufferedReader br = new BufferedReader(rd);
-            String line = "";
-            line = br.readLine();
-            StringBuffer ss = new StringBuffer();
-            while (line != null) {
-                line = br.readLine();
-                ss.append(line);
-            }
-            String db_input = ss.toString();
+        return null;
+    }
+
+    public static void DbCreateTable(Connection conn) {
+        try {
+            Statement stmt = conn.createStatement();
+            String sql = "CREATE TABLE IF NOT EXISTS Quiz " +
+                    "(name TEXT, " + "quiz BLOB)";
+            stmt.execute(sql);
+        } catch (Exception e) {
+
+        }
+    }
+
+    public static void DbSaveByteFile(Connection conn, byte[] std) {
+        try {
             PreparedStatement preps;
-            Connection con= DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/test","root","123");
-            preps = con.prepareStatement("insert into Quizes (name, quizInfo) values (?, ?)");
-            preps.setString(1, "test1");
-            preps.setString(2, db_input);
+            preps = conn.prepareStatement("INSERT INTO Quiz (name, quiz) values (?, ?)");
+            preps.setString(1, "demo1");
+            preps.setBytes(2, std);
             preps.execute();
-        }catch (Exception e){
-
+        } catch (Exception e) {
+            System.out.println(e);
         }
+    }
 
-        try{
+    public static byte[] DbGetByteFile(Connection conn) {
+        try {
+            byte[] std;
+            ResultSet rs;
             PreparedStatement preps;
-            Connection con= DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/test","root","123");
-            preps = con.prepareStatement("select quizInfo from Quizes where name = ?");
-            preps.setString(1, "test1");
-            ResultSet rs = preps.executeQuery();
-            String deserializeStr = "";
-            if (rs.next()){
-                deserializeStr = rs.getString("quizInfo");
+            preps = conn.prepareStatement("select quiz from Quiz where name = ?");
+            preps.setString(1, "demo1");
+            rs = preps.executeQuery();
+            if (rs.next()) {
+                std = rs.getBytes(1);
+                return std;
             }
+            return null;
 
-            File writename = new File(file1_name);
-//            writename.createNewFile();
-            BufferedWriter out = new BufferedWriter((new FileWriter(writename)));
-            out.write(deserializeStr);
-            out.flush();
-            out.close();
-        } catch(Exception e){
-
+        } catch (Exception e) {
+            System.out.println(e);
         }
+        return null;
+    }
 
-        try(ObjectInputStream oos = new ObjectInputStream(new FileInputStream(file1_name))){
-            Quiz b = (Quiz) oos.readObject();
-            System.out.println("s");
-        }
-//        try{
-//            Quiz a = new Quiz("q_name");
-//            Questions q = new TrueFalseQuestions("tf", "0");
-//            PreparedStatement preps;
-//            Connection con= DriverManager.getConnection(
-//                    "jdbc:mysql://localhost:3306/test","root","123");
-//            preps = con.prepareStatement("insert into Quizes (name, quizObj) values (?, ?)");
-//            preps.setString(1, "test1");
-//            preps.setObject(2, a);
-//            preps.execute();
-//        } catch(Exception e){
-//            System.out.println(e);
-//        }
-//        try{
-//            PreparedStatement preps;
-//            Connection con= DriverManager.getConnection(
-//                    "jdbc:mysql://localhost:3306/test","root","123");
-//            preps = con.prepareStatement("select quizObj from Quizes where name = ?");
-//            preps.setString(1, "test1");
-//            ResultSet rs = preps.executeQuery();
-////            List<Quiz> bs = new ArrayList<>();
-//            if (rs.next()) {
-//                Blob inBlob = rs.getBlob(1);
-//                InputStream is = inBlob.getBinaryStream();
-//                BufferedInputStream bis = new BufferedInputStream(is);
-//                byte[] buff = new byte[(int) inBlob.length()];
-//                while (-1 != (bis.read(buff, 0, buff.length))) {            //一次性全部读到buff中
-//                    ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(buff));
-//                    Quiz b = (Quiz) in.readObject();                   //读出对象
-//                    System.out.println(b.quizName);
-//                }
-//
-//            }
-//
-//        } catch (Exception e){
-//            System.out.println(e);
-//        }
 
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
+        Quiz demo1 = new Quiz("demo1");
+        Questions q = new TrueFalseQuestions("ak", "0");
+        demo1.Qs.add(q);
+
+        Connection conn = DbConnect();
+        DbCreateTable(conn);
+
+        byte[] demo1_byte_file = saveObjToByteFile(demo1);
+        DbSaveByteFile(conn, demo1_byte_file);
+
+        byte[] demo1_byte_file_from_db = DbGetByteFile(conn);
+        Quiz b = getObjFromByteFile(demo1_byte_file_from_db);
+        System.out.println(b.Qs.get(0));
     }
 
 }
